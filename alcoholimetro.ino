@@ -2,6 +2,8 @@ int gas;
 int green = 2;
 int red = 4;
 int piezo = 7;
+int maxi = 355;
+int mini = 108;
 
 
 void setup() {
@@ -13,21 +15,25 @@ void setup() {
 }
 
 void loop() {
-	// range 175-
-	gas = analogRead(A0);
-	//if ()
-	//{
-	//	digitalWrite(2, HIGH);
-//		delay(1000);
-//		digitalWrite(2, LOW);
-//		delay(1000);
-//		Serial.println("Hi");
-//	}
-//	else
-//	{
-//		pri
-//	}
+	int midNum = ((maxi-mini) / 2) + mini;
 
+	gas = analogRead(A0);
+
+	if (gas > midNum) // (max-min)/2
+	{
+		digitalWrite(red, HIGH);
+		digitalWrite(green, LOW);
+		digitalWrite(piezo, HIGH);
+		delay(1000);
+		digitalWrite(piezo, LOW);
+		delay(1000);
+	}
+	else
+	{
+		digitalWrite(red, LOW);
+		digitalWrite(green, HIGH);
+		digitalWrite(piezo, LOW);
+	}
 	Serial.println(gas);
 	delay(2000);
 }
